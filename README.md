@@ -20,7 +20,7 @@ This project is a mobile application built with React Native and Expo for HR man
 
 ## Screenshots
 
-![App Screenshot](./screenshots/app-screenshot.png)
+![App Screenshot]("https://cdn.dribbble.com/users/1009892/screenshots/18546279/media/3a2e3feeb8d4e2626af6dfdbf1a4195c.jpg?resize=1000x750&vertical=center")
 
 ## Installation
 
