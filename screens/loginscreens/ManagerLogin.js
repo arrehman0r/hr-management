@@ -5,9 +5,11 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../../auth/authSlice';
 
 const schema = yup.object().shape({
-  email: yup.string().required('Email or Username is required'),
+  username: yup.string().required('Username is required'),
   password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
 });
 
@@ -17,20 +19,23 @@ const ManagerLogin = ({ setRole }) => {
   });
 
   const navigate = useNavigation();
+  const dispatch = useDispatch();
+  const loading = useSelector(state => state.auth.loading);
+  const error = useSelector(state => state.auth.error);
 
   const onSubmit = (data) => {
-    // if (data.email !== "abc123" || data.password !== "123456") {
-    //   Alert.alert("Invalid Username and Password")
-    // } else {
-    //   console.log(data);
-    //   navigate.navigate("DrawerNavigator")
-    // }
+    console.log(data);
+    let loginDetails = {
+      username: data.username,
+      password: data.password,
+    }
+    dispatch(loginUser(loginDetails));
     setRole('manager');
+    console.log(setRole);
   };
 
   const handleGoBack = () => {
     navigate.goBack();
-    // console.log('Go back pressed');
   };
 
   return (
@@ -54,19 +59,19 @@ const ManagerLogin = ({ setRole }) => {
         <View style={styles.inputContainer}>
           <Controller
             control={control}
-            name="email"
+            name="username"
             render={({ field: { onChange, onBlur, value } }) => (
               <>
                 <TextInput
-                  style={[styles.input, errors.email && { borderColor: 'red' }]}
+                  style={[styles.input, errors.username && { borderColor: 'red' }]}
                   placeholder="Username"
-                  keyboardType="email-address"
+                  // keyboardType="em"
                   autoCapitalize="none"
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
                 />
-                {errors.email && <Text className="text-red-500 -mt-4 mb-3">{errors.email.message}</Text>}
+                {errors.username && <Text className="text-red-500 -mt-4 mb-3">{errors.username.message}</Text>}
               </>
             )}
           />
@@ -87,6 +92,7 @@ const ManagerLogin = ({ setRole }) => {
               </>
             )}
           />
+          {error ? <Text className="py-1.5 text-center text-red-500 text-[15px] font-medium">{error}</Text> : null}
           <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>

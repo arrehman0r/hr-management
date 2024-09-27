@@ -33,6 +33,8 @@ import Teams from './screens/hr_screens/overviewscreens/Teams';
 import PaySlipofEmployee from './screens/hr_screens/overviewscreens/PaySlip';
 import PaySlipSummary from './screens/hr_screens/employeePayslip/PaySlipSummary';
 import Attendance from './screens/hr_screens/overviewscreens/Attendance';
+import EmployeeDetails from './screens/hr_screens/employeedetails/EmployeeDetails';
+// import AutorityScreen from './screens/AutorityScreen'
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -206,6 +208,7 @@ function ManagerStackNavigator() {
             <Stack.Screen name="PaySlipofEmployee" component={PaySlipofEmployee} />
             <Stack.Screen name="PaySlipSummary" component={PaySlipSummary} />
             <Stack.Screen name="Attendance" component={Attendance} />
+            <Stack.Screen name="EmployeeDetails" component={EmployeeDetails} />
         </Stack.Navigator>
     );
 }
@@ -257,7 +260,7 @@ function AppNavigator() {
                 ) : (
                     // <>
                     //     {role === roles.employee && (
-                    //         <Stack.Screen name="EmployeeStackNavigator" component={EmployeeStackNavigator} />
+                    // <Stack.Screen name="EmployeeStackNavigator" component={EmployeeStackNavigator} />
                     //     )}
                     //     {role === roles.manager && (
                     <Stack.Screen name="ManagerStackNavigator" component={ManagerStackNavigator} />

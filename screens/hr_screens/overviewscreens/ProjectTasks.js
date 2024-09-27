@@ -85,7 +85,7 @@ const ProjectTasks = () => {
             <View style={styles.weekRow}>
                 {days.map((day, index) => (
                     <TouchableOpacity
-                        key={day}
+                        key={day}z
                         style={getDayContainerStyle(day)}
                         onPress={() => handleDateSelection(day, index)}
                     >

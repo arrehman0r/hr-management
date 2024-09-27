@@ -7,10 +7,10 @@ import { MaterialIcons } from '@expo/vector-icons';
 export const OverviewAllSections = [
     {
         id: 1,
-        title: 'Requests',
-        icon: <Ionicons name="mail-open-outline" size={34} color="white" />,
+        title: 'Employee List',
+        icon: <FontAwesome name="list-ul" size={28} color="white" />,
         count: 100,
-        link: "AddNewEmployee"
+        link: "Employee List"
     },
     {
         id: 2,

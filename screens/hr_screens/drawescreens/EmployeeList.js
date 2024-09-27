@@ -30,7 +30,6 @@ const EmployeeList = () => {
         );
     };
 
-
     const deleteEmployee = (itemToDelete) => {
         const updatedData = data.filter(item => item.id !== itemToDelete.id);
         setData(updatedData);
@@ -62,8 +61,8 @@ const EmployeeList = () => {
                                     <Text style={menuStyles.text}>Delete</Text>
                                 </TouchableOpacity>
                             </MenuOption>
-                            <MenuOption onSelect={() => alert(`View Details for ${item.name}`)}>
-                                <TouchableOpacity style={menuStyles.option}>
+                            <MenuOption >
+                                <TouchableOpacity style={menuStyles.option} onPress={() => navigation.navigate("EmployeeDetails", { employee: item })}>
                                     <Ionicons name="eye-outline" size={20} color="#6C7A89" />
                                     <Text style={menuStyles.text}>View Details</Text>
                                 </TouchableOpacity>
