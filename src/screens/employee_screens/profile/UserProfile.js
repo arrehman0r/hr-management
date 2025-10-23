@@ -46,7 +46,7 @@ const UserProfile = () => {
           <Text style={styles.nameText}>
             {/* The line below is a placeholder as the actual user data is commented out */}
             {/* {user?.name || "Vishal Rawat"} */}
-            Vishal Rawat 
+          Tahir Mehmood
           </Text>
           <View style={styles.jobTitleContainer}>
             <Text style={styles.jobTitleText}>

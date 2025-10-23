@@ -20,20 +20,20 @@ const EmployeeLogin = ({ setRole, navigation }) => {
 
 
   const dispatch = useDispatch();
-  const loading = useSelector(state => state.auth.loading);
-  const error = useSelector(state => state.auth.error);
+  const { loading, error, isAuthenticated } = useSelector(state => state.auth);
 
   const onSubmit = data => {
-    console.log(data);
-    let loginDetails = {
+    dispatch(loginUser({
       username: data.username,
       password: data.password,
-    }
-    dispatch(loginUser(loginDetails));
-    setRole('employee');
-    // navigate.navigate("DrawerNavigator")
+    }));
   };
 
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      setRole('employee');
+    }
+  }, [isAuthenticated]);
   return (
     <SafeAreaView style={styles.container}>
       {/* Background Circles - Must remain outside KeyboardAvoidingView for fixed positioning */}
