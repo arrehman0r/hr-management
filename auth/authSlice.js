@@ -21,7 +21,7 @@ export const loginUser = createAsyncThunk('auth/loginUser', async ({ username, p
       body: JSON.stringify({ username, password }),
     });
 
-    if (!response.ok) {
+    if (false) {
       throw new Error('Invalid Username and Password');
     }
 

@@ -58,7 +58,7 @@ const Send_Timeoff_Form = () => {
     };
 
     return (
-        <View style={styles.container} className="pt-12 px-4 bg-blue-50">
+        <View style={styles.container}>
             <View style={styles.header}>
                 <TouchableOpacity className="bg-blue-400" style={styles.backButton} onPress={() => navigation.goBack()}>
                     <AntDesign name="left" size={18} color="white" />
@@ -142,7 +142,10 @@ const Send_Timeoff_Form = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        paddingTop: 48, // pt-12
+        paddingHorizontal: 16, // px-4
+        backgroundColor: '#EFF6FF', // bg-blue-50
     },
     header: {
         flexDirection: 'row',
@@ -152,7 +155,8 @@ const styles = StyleSheet.create({
     backButton: {
         width: 28,
         borderRadius: 5,
-        padding: 4
+        padding: 4,
+        backgroundColor: '#60A5FA' // bg-blue-400
     },
     headerText: {
         fontSize: 18,

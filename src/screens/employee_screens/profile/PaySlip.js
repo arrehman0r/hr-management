@@ -29,7 +29,7 @@ const PaySlip = () => {
                     </View>
                     <View className="py-1">
                         <Text className="text-[22px] pl-1.5 font-semibold text-[#00a2e4]">
-                            $1520
+                            Rs1520
                         </Text>
                     </View>
                 </View>

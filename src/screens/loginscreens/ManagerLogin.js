@@ -91,7 +91,7 @@ const ManagerLogin = ({ setRole }) => {
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.goBackButton} onPress={handleGoBack}>
-            <Text style={styles.goBackButtonText}>Go Back</Text>
+            <Text style={styles.goBackButtonText}>Login as employee</Text>
           </TouchableOpacity>
         </View>
       </View>

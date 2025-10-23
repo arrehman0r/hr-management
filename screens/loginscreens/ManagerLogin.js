@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, SafeAreaView, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, SafeAreaView, StyleSheet, Image, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -40,6 +40,7 @@ const ManagerLogin = ({ setRole }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Background Circles - Must remain outside KeyboardAvoidingView for fixed positioning */}
       <View style={styles.circleContainerTop}>
         <View style={styles.circleLarge}></View>
         <View style={styles.circleSmall}></View>
@@ -48,70 +49,96 @@ const ManagerLogin = ({ setRole }) => {
         <View style={styles.circleLarge}></View>
         <View style={styles.circleSmall}></View>
       </View>
-      <View style={styles.formContainer}>
-        <Image
-          source={{ uri: 'https://img.freepik.com/free-vector/boss-man-concept-illustration_114360-19846.jpg?t=st=1717261717~exp=1717265317~hmac=330da47853c0f48794a9e62f67cb42c40c8a83cbca45afa1b55f3cc577d4c093&w=740' }}
-          style={styles.logo}
-        />
-        <View style={styles.header}>
-          <Text style={styles.headerText}>Manager Login</Text>
-        </View>
-        <View style={styles.inputContainer}>
-          <Controller
-            control={control}
-            name="username"
-            render={({ field: { onChange, onBlur, value } }) => (
-              <>
-                <TextInput
-                  style={[styles.input, errors.username && { borderColor: 'red' }]}
-                  placeholder="Username"
-                  // keyboardType="em"
-                  autoCapitalize="none"
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                />
-                {errors.username && <Text className="text-red-500 -mt-4 mb-3">{errors.username.message}</Text>}
-              </>
-            )}
-          />
-          <Controller
-            control={control}
-            name="password"
-            render={({ field: { onChange, onBlur, value } }) => (
-              <>
-                <TextInput
-                  style={[styles.input, errors.password && { borderColor: 'red' }]}
-                  placeholder="Password"
-                  secureTextEntry
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                />
-                {errors.password && <Text className="text-red-500 -mt-4 mb-4">{errors.password.message}</Text>}
-              </>
-            )}
-          />
-          {error ? <Text className="py-1.5 text-center text-red-500 text-[15px] font-medium">{error}</Text> : null}
-          <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)}>
-            <Text style={styles.buttonText}>Login</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.goBackButton} onPress={handleGoBack}>
-            <Text style={styles.goBackButtonText}>Go Back</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+
+      {/* KeyboardAvoidingView for handling keyboard overlap */}
+      <KeyboardAvoidingView
+        style={styles.keyboardAvoidingContainer}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+          <View style={styles.formContainer}>
+            <Image
+              source={{ uri: 'https://img.freepik.com/free-vector/boss-man-concept-illustration_114360-19846.jpg?t=st=1717261717~exp=1717265317~hmac=330da47853c0f48794a9e62f67cb42c40c8a83cbca45afa1b55f3cc577d4c093&w=740' }}
+              style={styles.logo}
+            />
+            <View style={styles.header}>
+              <Text style={styles.headerText}>Manager Login</Text>
+            </View>
+            <View style={styles.inputContainer}>
+              <Controller
+                control={control}
+                name="username"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <>
+                    <TextInput
+                      style={[styles.input, errors.username && { borderColor: 'red' }]}
+                      placeholder="Username"
+                      autoCapitalize="none"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                    />
+                    {/* Converted Style: className="text-red-500 -mt-4 mb-3" */}
+                    {errors.username && <Text style={styles.errorTextUsername}>{errors.username.message}</Text>}
+                  </>
+                )}
+              />
+              <Controller
+                control={control}
+                name="password"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <>
+                    <TextInput
+                      style={[styles.input, errors.password && { borderColor: 'red' }]}
+                      placeholder="Password"
+                      secureTextEntry
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                    />
+                    {/* Converted Style: className="text-red-500 -mt-4 mb-4" */}
+                    {errors.password && <Text style={styles.errorTextPassword}>{errors.password.message}</Text>}
+                  </>
+                )}
+              />
+              {/* Converted Style: className="py-1.5 text-center text-red-500 text-[15px] font-medium" */}
+              {error ? <Text style={styles.apiErrorText}>{error}</Text> : null}
+
+              <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)} disabled={loading}>
+                <Text style={styles.buttonText}>{loading ? 'Logging in...' : 'Login'}</Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity style={styles.goBackButton} onPress={handleGoBack}>
+                <Text style={styles.goBackButtonText}>Login as employee</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  // Global Container
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
-    padding: 10,
     paddingTop: 50,
   },
+  // New container to allow KeyboardAvoidingView to take full height
+  keyboardAvoidingContainer: {
+    flex: 1,
+    paddingHorizontal: 10, // Matching the original padding
+  },
+  // ScrollView Content (to allow scrolling when content is larger than screen)
+  scrollContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    paddingVertical: 20,
+  },
+
+  // --- Background Circles ---
   circleContainerTop: {
     position: 'absolute',
     top: 0,
@@ -145,6 +172,8 @@ const styles = StyleSheet.create({
     top: 50,
     left: 70,
   },
+
+  // --- Form Content ---
   formContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -175,9 +204,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 15,
-    marginBottom: 20,
+    marginBottom: 20, // Default margin for inputs
     fontSize: 16,
   },
+
+  // --- Buttons ---
   button: {
     height: 50,
     backgroundColor: '#333333',
@@ -191,11 +222,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-  forgotPasswordText: {
-    color: '#1E90FF',
-    textAlign: 'center',
-    fontSize: 16,
-  },
   goBackButton: {
     height: 50,
     backgroundColor: '#cccccc',
@@ -208,6 +234,37 @@ const styles = StyleSheet.create({
     color: '#333333',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+
+  // --- Error Text (Converted from Tailwind) ---
+  // Default error text (not used, but good to have)
+  errorText: {
+    color: 'red',
+    marginBottom: 10,
+    fontSize: 14,
+  },
+  // Converted style for username error: className="text-red-500 -mt-4 mb-3"
+  errorTextUsername: {
+    color: '#EF4444', // text-red-500
+    marginTop: -16, // -mt-4 (4 * 4 = 16)
+    marginBottom: 12, // mb-3 (3 * 4 = 12)
+    fontSize: 14,
+  },
+  // Converted style for password error: className="text-red-500 -mt-4 mb-4"
+  errorTextPassword: {
+    color: '#EF4444', // text-red-500
+    marginTop: -16, // -mt-4 (4 * 4 = 16)
+    marginBottom: 16, // mb-4 (4 * 4 = 16)
+    fontSize: 14,
+  },
+  // Converted style for API error text: className="py-1.5 text-center text-red-500 text-[15px] font-medium"
+  apiErrorText: {
+    paddingVertical: 6, // py-1.5
+    textAlign: 'center',
+    color: '#EF4444', // text-red-500
+    fontSize: 15, // text-[15px]
+    fontWeight: '500', // font-medium
+    marginBottom: 10, // Added to prevent running into the next button
   },
 });
 

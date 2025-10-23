@@ -98,18 +98,14 @@ function TabNavigator({ navigation }) {
 function DrawerNavigator() {
     return (
         <Drawer.Navigator
-            initialRouteName="Home"
+            initialRouteName="Home Screen"
             drawerContent={(props) => <CustomDrawerContent {...props} />}
             screenOptions={{
                 headerShown: false,
                 drawerActiveTintColor: '#00a2e4',
                 drawerInactiveTintColor: 'black',
-                drawerLabelStyle: {
-                    marginLeft: -18,
-                },
-                drawerItemStyle: {
-                    marginVertical: 0,
-                },
+
+       
             }}
         >
             <Drawer.Screen
@@ -146,7 +142,7 @@ function DrawerNavigator() {
 function ManagerDrawer() {
     return (
         <Drawer.Navigator
-            initialRouteName="ManagerHome"
+            initialRouteName="Manager Home"
             drawerContent={(props) => <CustomDrawerContent {...props} />}
             screenOptions={{
                 headerShown: false,
@@ -258,14 +254,14 @@ function AppNavigator() {
                         </Stack.Screen>
                     </>
                 ) : (
-                    // <>
-                    //     {role === roles.employee && (
-                    // <Stack.Screen name="EmployeeStackNavigator" component={EmployeeStackNavigator} />
-                    //     )}
-                    //     {role === roles.manager && (
+                    <>
+                        {role === roles.employee && (
+                    <Stack.Screen name="EmployeeStackNavigator" component={EmployeeStackNavigator} />
+                        )}
+                        {role === roles.manager && (
                     <Stack.Screen name="ManagerStackNavigator" component={ManagerStackNavigator} />
-                    //     )}
-                    // </>
+                        )}
+                    </>
                 )}
             </Stack.Navigator>
         </NavigationContainer>
@@ -317,7 +313,7 @@ const styles = StyleSheet.create({
         borderRadius: 35,
     },
     iconContainer: {
-        padding: 5,
+       
         borderRadius: 15,
     },
     focusedIcon: {

@@ -25,7 +25,7 @@ export const ShiftData = [
     {
         id: 1,
         check: "Check In",
-        time: "10:30 AM",
+        time: "10:31 AM",
         InTime: "On Time",
         image: CheckIn
     },

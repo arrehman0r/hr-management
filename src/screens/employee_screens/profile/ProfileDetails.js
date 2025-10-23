@@ -15,7 +15,7 @@ const ProfileDetails = () => {
         study: 'B.Tech in Computer Science',
         experience: '5 years',
         achievement: 'Employee of the Year 2021',
-        salary: '$100,000',
+        salary: 'Rs100,000',
         documents: 'Passport, Driving License',
         marks10: '95%',
         marks12: '90%',

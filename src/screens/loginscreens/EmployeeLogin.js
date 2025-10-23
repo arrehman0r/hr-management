@@ -111,8 +111,8 @@ const EmployeeLogin = ({ setRole, navigation }) => {
           <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)} disabled={loading}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.goBackButton} onPress={() => navigate.goBack()}>
-            <Text style={styles.goBackButtonText}>Go Back</Text>
+          <TouchableOpacity style={styles.goBackButton} onPress={() => navigate("ManagerLogin")}>
+            <Text style={styles.goBackButtonText}>Login as manager</Text>
           </TouchableOpacity>
         </View>
       </View>
